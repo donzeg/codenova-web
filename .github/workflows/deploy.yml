@@ -57,7 +57,7 @@ jobs:
           
           # Install dependencies
           echo "📦 Installing dependencies..."
-          ssh sadiq@100.94.190.92 "cd $PROD_DIR && npm ci --production=false"
+          ssh sadiq@100.94.190.92 "cd $PROD_DIR && npm ci --production=false --legacy-peer-deps"
           
           # Clean previous build artifacts
           echo "🧹 Cleaning previous build..."
