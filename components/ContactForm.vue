@@ -46,8 +46,8 @@
           <p class="text-sm text-red-500/80">{{ error }}</p>
           <p class="text-xs text-red-500/60 mt-1">
             Please try again or email us directly at
-            <a href="mailto:codenovainnovations@gmail.com" class="underline">
-              codenovainnovations@gmail.com
+            <a href="mailto:contact@codenova.cc" class="underline">
+              contact@codenova.cc
             </a>
           </p>
         </div>

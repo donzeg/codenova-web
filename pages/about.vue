@@ -190,10 +190,10 @@
                 <div>
                   <p class="text-sm text-medium-gray mb-1">Email</p>
                   <a
-                    href="mailto:codenovainnovations@gmail.com"
+                    href="mailto:contact@codenova.cc"
                     class="text-white hover:text-electric-blue transition-colors focus-ring rounded"
                   >
-                    codenovainnovations@gmail.com
+                    contact@codenova.cc
                   </a>
                 </div>
               </div>

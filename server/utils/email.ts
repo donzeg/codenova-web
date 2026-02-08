@@ -542,7 +542,7 @@ function generateAutoReplyHTML(data: ContactFormData): string {
         <a href="https://codenova.cc/capabilities">Capabilities</a>
       </div>
       <div class="footer-text" style="margin-top: 20px; font-size: 12px;">
-        This is an automated response. Please do not reply to confirm receipt.<br>
+        This is an automated confirmation email.<br>
         If you didn't submit this form, you can safely ignore this email.
       </div>
     </div>

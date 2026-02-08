@@ -33,10 +33,10 @@
             <ul class="space-y-2">
               <li>
                 <a
-                  href="mailto:codenovainnovations@gmail.com"
+                  href="mailto:contact@codenova.cc"
                   class="text-sm text-medium-gray transition-colors hover:text-white focus-ring rounded"
                 >
-                  codenovainnovations@gmail.com
+                  contact@codenova.cc
                 </a>
               </li>
               <li>

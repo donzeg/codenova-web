@@ -78,7 +78,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     // Server-only keys
     githubToken: process.env.GITHUB_TOKEN || '',
-    contactEmail: process.env.CONTACT_EMAIL || 'codenovainnovations@gmail.com',
+    contactEmail: process.env.CONTACT_EMAIL || 'contact@codenova.cc',
     resendApiKey: process.env.RESEND_API_KEY || '',
     
     // Public keys (exposed to client)
