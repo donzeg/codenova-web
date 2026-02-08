@@ -74,7 +74,7 @@ jobs:
           
           # Restart PM2 process
           echo "♻️  Restarting PM2 process..."
-          ssh sadiq@100.94.190.92 "cd $PROD_DIR && pm2 delete codenova-web 2>/dev/null || true && pm2 start ecosystem.config.cjs --update-env"
+          ssh sadiq@100.94.190.92 "cd $PROD_DIR && pm2 restart codenova-web --update-env || pm2 start ecosystem.config.cjs"
           
           # Save PM2 configuration
           echo "💾 Saving PM2 configuration..."
