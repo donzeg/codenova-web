@@ -19,7 +19,7 @@ export const sendContactEmail = async (data: ContactFormData) => {
     const plainTextContent = generateEmailPlainText(data)
 
     const response = await resend.emails.send({
-      from: 'Codenova Website <noreply@codenovainnovations.com>',
+      from: 'Codenova Website <noreply@codenova.cc>',
       to: [contactEmail],
       replyTo: data.email,
       subject: `New Contact Form Submission from ${data.name}`,
