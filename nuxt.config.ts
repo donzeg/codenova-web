@@ -38,7 +38,7 @@ export default defineNuxtConfig({
 
   // App configuration
   app: {
-    baseURL: '/',
+    baseURL: process.env.NODE_ENV === 'production' ? '/' : '/codenova-web/',
     head: {
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
@@ -49,7 +49,7 @@ export default defineNuxtConfig({
         {
           rel: 'icon',
           type: 'image/svg+xml',
-          href: '/favicon.svg'
+          href: process.env.NODE_ENV === 'production' ? '/favicon.svg' : '/codenova-web/favicon.svg'
         },
         {
           rel: 'preconnect',
@@ -68,7 +68,7 @@ export default defineNuxtConfig({
       meta: [
         {
           property: 'og:image',
-          content: '/og-image.svg'
+          content: process.env.NODE_ENV === 'production' ? '/og-image.svg' : '/codenova-web/og-image.svg'
         }
       ]
     }
@@ -85,6 +85,18 @@ export default defineNuxtConfig({
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://codenova.cc',
       githubUsername: process.env.GITHUB_USERNAME || 'donzeg'
+    }
+  },
+
+  // Vite configuration
+  vite: {
+    server: {
+      hmr: {
+        protocol: 'ws',
+        host: '217.117.2.101',
+        port: 24678,
+        clientPort: 24678
+      }
     }
   },
 

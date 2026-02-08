@@ -184,21 +184,29 @@
     </section>
 
     <!-- CTA -->
-    <section class="py-20 bg-gradient-primary relative overflow-hidden">
-      <div class="absolute inset-0 opacity-10">
-        <div class="absolute inset-0 bg-glow-effect"></div>
+    <section class="py-20 bg-gradient-primary relative overflow-hidden cta-section">
+      <!-- Background Image -->
+      <div class="absolute inset-0 opacity-20">
+        <img 
+          src="/images/team/software-team-collaboration.jpg" 
+          alt="Let's collaborate on your project"
+          class="w-full h-full object-cover"
+          loading="lazy"
+        />
+        <div class="absolute inset-0 bg-gradient-to-b from-electric-blue/90 via-electric-blue/80 to-cyan-accent/90" />
       </div>
+
       <Container class="relative z-10">
         <div class="mx-auto max-w-2xl text-center">
-          <h2 class="mb-4 text-heading-2">Ready to Start Your Project?</h2>
-          <p class="mb-8 text-lg text-light-gray">
+          <h2 class="mb-4 text-heading-2 text-deep-navy">Ready to Start Your Project?</h2>
+          <p class="mb-8 text-lg text-darker-gray">
             Let's discuss your requirements and build something exceptional
           </p>
-          <NuxtLink
-            to="/about#contact"
-            class="inline-block rounded-lg bg-white px-8 py-4 text-lg font-semibold text-deep-navy transition-default hover:scale-105 hover:shadow-xl active:scale-95 focus-ring"
-          >
-            Get in Touch
+          <NuxtLink to="/about#contact" class="inline-flex items-center space-x-2 text-electric-blue hover:text-cyan-accent transition-colors focus-ring rounded-lg px-4 py-2">
+            <span class="text-xl font-semibold">Get in Touch</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+            </svg>
           </NuxtLink>
         </div>
       </Container>
