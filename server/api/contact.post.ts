@@ -85,7 +85,7 @@ export default defineEventHandler(async (event): Promise<ContactFormResponse> =>
       stripUnknown: true
     })
 
-    // Send email notification
+    // Send email notification to company
     try {
       await sendContactEmail(validatedData as ContactFormData)
       
@@ -96,8 +96,18 @@ export default defineEventHandler(async (event): Promise<ContactFormResponse> =>
         ip
       })
     } catch (emailError) {
-      console.error('Failed to send email:', emailError)
+      console.error('Failed to send notification email:', emailError)
       // Continue even if email fails - we still log the submission
+    }
+
+    // Send auto-reply to customer
+    try {
+      await sendAutoReplyEmail(validatedData as ContactFormData)
+      
+      console.log('Auto-reply sent to:', validatedData.email)
+    } catch (autoReplyError) {
+      console.error('Failed to send auto-reply:', autoReplyError)
+      // Don't fail the request if auto-reply fails
     }
 
     // In production, you would send an email here:
