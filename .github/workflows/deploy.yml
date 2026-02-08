@@ -1,0 +1,97 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Allow manual triggers
+
+jobs:
+  deploy:
+    name: Deploy to codenova.cc
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: � Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 🔐 Setup Tailscale
+        uses: tailscale/github-action@v2
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
+          version: 1.56.1
+          
+      - name: 🔑 Setup SSH Key
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H 100.94.190.92 >> ~/.ssh/known_hosts 2>/dev/null || true
+      
+      - name: 🚀 Deploy to Production Server
+        run: |
+          echo "🎯 Deploying CodeNova to production server via Tailscale..."
+          
+          PROD_DIR="/home/sadiq/codenova-web"
+          
+          # Stop PM2 process BEFORE syncing to release file locks
+          echo "🛑 Stopping PM2 process..."
+          ssh sadiq@100.94.190.92 "pm2 stop codenova-web 2>/dev/null || true"
+          
+          # Sync code (exclude build artifacts and node_modules)
+          echo "📥 Syncing application code..."
+          rsync -avz --delete \
+            --exclude 'node_modules' \
+            --exclude '.nuxt' \
+            --exclude '.output' \
+            --exclude '.git' \
+            --exclude 'logs' \
+            --exclude '*.log' \
+            --exclude '.env' \
+            -e "ssh -o StrictHostKeyChecking=no" \
+            ./ sadiq@100.94.190.92:$PROD_DIR/
+          
+          # Install dependencies
+          echo "📦 Installing dependencies..."
+          ssh sadiq@100.94.190.92 "cd $PROD_DIR && npm ci --production=false"
+          
+          # Clean previous build artifacts
+          echo "🧹 Cleaning previous build..."
+          ssh sadiq@100.94.190.92 "cd $PROD_DIR && rm -rf .output .nuxt"
+          
+          # Build application
+          echo "🔨 Building Nuxt application..."
+          ssh sadiq@100.94.190.92 "cd $PROD_DIR && npm run build"
+          
+          # Restart PM2 process
+          echo "♻️  Restarting PM2 process..."
+          ssh sadiq@100.94.190.92 "cd $PROD_DIR && pm2 delete codenova-web 2>/dev/null || true && pm2 start ecosystem.config.cjs --update-env"
+          
+          # Save PM2 configuration
+          echo "💾 Saving PM2 configuration..."
+          ssh sadiq@100.94.190.92 "pm2 save"
+          
+          echo "✅ CodeNova deployment completed!"
+      
+      - name: ✅ Verify Deployment
+        run: |
+          echo "🔍 Checking deployment status..."
+          sleep 10
+          
+          # Check PM2 status
+          echo "📊 PM2 Process Status:"
+          ssh sadiq@100.94.190.92 "pm2 list"
+          
+          # Verify process is online
+          ssh sadiq@100.94.190.92 "pm2 describe codenova-web | grep -q 'online' && echo '✅ CodeNova is online' || echo '❌ CodeNova is not online'"
+      
+      - name: 🔔 Deployment Summary
+        run: |
+          echo "✅ CodeNova deployment completed successfully!"
+          echo "🌐 Website: https://codenova.cc"
+          echo "🚀 Server: 100.94.190.92 (Tailscale) → 217.117.2.102 (Public)"
+          echo "⚡ Deployed via PM2 Process Manager"
