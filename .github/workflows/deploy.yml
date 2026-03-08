@@ -36,7 +36,7 @@ jobs:
         run: |
           echo "🎯 Deploying CodeNova to production server via Tailscale..."
           
-          PROD_DIR="/home/sadiq/codenova-web"
+          PROD_DIR="/home/sadiq/projects/codenova-web"
           
           # Stop PM2 process BEFORE syncing to release file locks
           echo "🛑 Stopping PM2 process..."
