@@ -3,8 +3,23 @@
     <Container>
       <nav class="flex h-16 items-center justify-between">
         <!-- Logo -->
-        <NuxtLink to="/" class="flex items-center space-x-2 focus-ring rounded-lg">
-          <span class="text-xl font-bold text-gradient">Codenova</span>
+        <NuxtLink to="/" class="flex items-center focus-ring rounded-lg">
+          <span 
+            class="text-5xl font-black tracking-tighter"
+            style="
+              background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-clip: text;
+              letter-spacing: -0.08em;
+              text-shadow: 0 0 30px rgba(6, 182, 212, 0.5);
+              filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.4));
+              font-family: 'Inter', 'Space Mono', sans-serif;
+              font-weight: 900;
+            "
+          >
+            CODENOVA
+          </span>
         </NuxtLink>
 
         <!-- Desktop Navigation -->
